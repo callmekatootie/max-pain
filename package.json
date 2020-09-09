@@ -4,7 +4,7 @@
   "description": "Calculate the max pain for an option chain",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "keywords": [
     "fintech",
@@ -15,9 +15,21 @@
     "call options",
     "put options"
   ],
-  "author": "callmekatootie <https://github.com/callmekatootie>",
+  "author": "callmekatootie (https://github.com/callmekatootie)",
   "license": "MIT",
+  "homepage": "https://github.com/callmekatootie/max-pain#max-pain",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/callmekatootie/max-pain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/callmekatootie/max-pain/issues"
+  },
+  "engines": {
+    "node": ">=12"
+  },
   "devDependencies": {
+    "ava": "^3.12.1",
     "standard": "^14.3.4"
   }
 }

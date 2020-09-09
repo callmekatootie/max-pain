@@ -28,6 +28,10 @@
   "engines": {
     "node": ">=12"
   },
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "ava": "^3.12.1",
     "standard": "^14.3.4"

@@ -1,0 +1,23 @@
+{
+  "name": "@dalalstreet/max-pain",
+  "version": "1.0.0",
+  "description": "Calculate the max pain for an option chain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fintech",
+    "max pain",
+    "stock markets",
+    "options",
+    "trading",
+    "call options",
+    "put options"
+  ],
+  "author": "callmekatootie <https://github.com/callmekatootie>",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^14.3.4"
+  }
+}

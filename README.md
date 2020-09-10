@@ -7,7 +7,7 @@ Calculate the max pain for an option chain
 You can install this module through `npm`:
 
 ```bash
-npm install @dalal-street/max-pain
+npm install @dalalstreet/max-pain
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install @dalal-street/max-pain
 An example of how you can use this module:
 
 ```javascript
-const maxPain = require('@dalal-street/max-pain')
+const maxPain = require('@dalalstreet/max-pain')
 
 const optionChain = [
   {

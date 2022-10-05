@@ -25,52 +25,49 @@ function calculate (optionChain) {
    */
   const strikes = []
   const chain = {}
-
   // Minimum pain for option writers, max pain for option buyers
-  let minPain
-  let minPainStrike
-
   optionChain.forEach(option => {
     const { strikePrice } = option
-
     // Collect all strikes
     strikes.push(strikePrice)
-
     // Format data for easier and quicker read
     chain[strikePrice] = {}
     chain[strikePrice][OPTION_TYPES.CALL] = option[OPTION_TYPES.CALL]
     chain[strikePrice][OPTION_TYPES.PUT] = option[OPTION_TYPES.PUT]
   })
-
   // Lowest strike first
   strikes.sort((a, b) => a - b)
-
+  // Calculate results
+  const results = []
   strikes.forEach(outerStrike => {
     const spotExpiry = outerStrike
-    let totalLoss = 0
-
+    let totalCallLoss = 0
+    let totalPutLoss = 0
     strikes.forEach(innerStrike => {
       if (spotExpiry < innerStrike) {
         // Only PUT option writers would lose money
         const intrinsicValue = innerStrike - spotExpiry
-        totalLoss += chain[innerStrike][OPTION_TYPES.PUT].openInterest * intrinsicValue
+        const openInterest = chain[innerStrike][OPTION_TYPES.PUT].openInterest
+        const strikeLoss = openInterest * intrinsicValue
+        totalPutLoss += strikeLoss
       } else if (spotExpiry > innerStrike) {
         // Only CALL option writers would lose money
         const intrinsicValue = spotExpiry - innerStrike
-        totalLoss += chain[innerStrike][OPTION_TYPES.CALL].openInterest * intrinsicValue
+        const openInterest = chain[innerStrike][OPTION_TYPES.CALL].openInterest
+        const strikeLoss = openInterest * intrinsicValue
+        totalCallLoss += strikeLoss
       }
     })
-
-    if (!minPain) {
-      minPain = totalLoss
-      minPainStrike = spotExpiry
-    } else if (totalLoss < minPain) {
-      minPain = totalLoss
-      minPainStrike = spotExpiry
-    }
+    results.push({
+      spotExpiry,
+      totalCallLoss,
+      totalPutLoss,
+      totalLoss: totalCallLoss + totalPutLoss
+    })
   })
-
-  return minPainStrike
+  // max pain = where option writers lose least
+  results.sort((a, b) => a.totalLoss - b.totalLoss)
+  return results
 }
 
 module.exports = { calculate }

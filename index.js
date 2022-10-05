@@ -58,8 +58,14 @@ function calculate (optionChain) {
         totalCallLoss += strikeLoss
       }
     })
+    const putOpenInterest = chain[outerStrike][OPTION_TYPES.PUT].openInterest
+    const callOpenInterest = chain[outerStrike][OPTION_TYPES.CALL].openInterest
+    const pcrRatio = putOpenInterest / callOpenInterest
     results.push({
       spotExpiry,
+      putOpenInterest,
+      callOpenInterest,
+      pcrRatio,
       totalCallLoss,
       totalPutLoss,
       totalLoss: totalCallLoss + totalPutLoss
